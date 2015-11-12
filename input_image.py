@@ -4,23 +4,30 @@ from face_recog import Training
 from orb import Feature_extractor
 from file_parser import File_parser
 import numpy as np
+import sys
 
 __author__ = 'Abdullah_Rahman'
 
 
 #r=kath
-threshold=0.55
+threshold=0.53
 
 
 
-filenames=("caprio.jpg","aron.jpg")
+filenames=("caprio.jpg","tes1.jpg")
 color=('r','b')
 cascade="frontalface.xml"
 C=KMeans(n_clusters=4)
 face_cascade=cv2.CascadeClassifier(cascade)
 
-image=cv2.imread("aronTest.jpg",0)
+image=cv2.imread("test.jpg",0)
 features=Feature_extractor(image)
+
+if image is None:
+    print "IMAGE NOT FOUND in input_image.py"
+    sys.exit(0)
+
+
 
 face=face_cascade.detectMultiScale(
     image,

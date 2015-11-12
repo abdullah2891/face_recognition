@@ -19,10 +19,8 @@ class Recognize:
         self.clf.train()
         self.face_cascade=cv2.CascadeClassifier(cascade)
 
-    def label(self,target):
-        image=cv2.imread(target,0)
+    def label_(self,image):
         features=Feature_extractor(image)
-
         face=self.face_cascade.detectMultiScale(
             image,
             scaleFactor=1.1,
@@ -52,9 +50,9 @@ def main():
     image=cv2.imread("caprio.jpg",0)
     r=Recognize(referenceImage,label,cascade)
 
+    image = cv2.imread("caprio.jpg",0)
+    print r.label_(image)
 
-    print r.label("caprio.jpg")
-
-main()
+#main()
 
 

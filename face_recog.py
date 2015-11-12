@@ -2,6 +2,7 @@ import cv2
 from orb import Feature_extractor
 from matplotlib import pyplot as plt
 from sklearn import tree
+import sys
 
 __author__ = 'Abdullah_Rahman'
 
@@ -16,9 +17,11 @@ class Training:
 
         for (fd,c) in labeled:
             img=cv2.imread(fd,0)
+            if img is None:
+                print "image can't be loaded "
+                sys.exit(0)
             face_cascade=cv2.CascadeClassifier(cascade)
             features=Feature_extractor(img)
-
 
 
             face=face_cascade.detectMultiScale(
