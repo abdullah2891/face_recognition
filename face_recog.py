@@ -10,19 +10,25 @@ __author__ = 'Abdullah_Rahman'
 
 
 class Training:
-    def __init__(self,filename,color,cascade):
+
+    READ_FILE = True
+    def __init__(self,filename,color,cascade,READ_FILE):
+
         labeled=zip(filename,color)
         label=[]
         feature_train=[]
 
         for (fd,c) in labeled:
-            img=cv2.imread(fd,0)
+            if READ_FILE is True:
+                img=cv2.imread(fd,0)
+                img =cv2.blur(img,(5,5))
+            else:
+                img = filename
             if img is None:
-                print "image can't be loaded "
+                print "image can't be loaded in face recog"
                 sys.exit(0)
             face_cascade=cv2.CascadeClassifier(cascade)
             features=Feature_extractor(img)
-
 
             face=face_cascade.detectMultiScale(
                 img,
@@ -64,6 +70,13 @@ class Training:
         self.clf.fit(self.feature_train,self.label)
     def predict(self,input):
         return self.clf.predict(input)
+
+
+    def features_(self):
+        return self.feature_train
+
+    def labels_(self):
+        return self.label
 
 
 
