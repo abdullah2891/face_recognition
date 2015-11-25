@@ -33,8 +33,8 @@ A = np.asarray(keypoints_caprio.features_())
 caprio_cluster = clustering(C,3)
 aron_cluster = clustering(A,3)
 
-upper_half_c = C[np.where(C[:,1]<50)]
-upper_half_a = A[np.where(A[:,1]<50)]
+upper_half_c = clustering(C[np.where(C[:,1]<50)],50)
+upper_half_a = clustering(A[np.where(A[:,1]<50)],50)
 
 bottom_half_c = C[np.where(C[:,1]>50)]
 bottom_half_a = A[np.where(A[:,1]>50)]
@@ -42,7 +42,9 @@ bottom_half_a = A[np.where(A[:,1]>50)]
 
 
 
-for ((x,y),(x1,y1)) in zip(bottom_half_a,upper_half_a):
+
+
+for ((x,y),(x1,y1)) in zip(upper_half_c.cluster_centers_,upper_half_a.cluster_centers_):
     plt.scatter(x,y)
     plt.scatter(x1,y1,color='r')
 
