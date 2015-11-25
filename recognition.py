@@ -12,6 +12,12 @@ def clustering(dataset,number_of_cluster):
     return clusterA
 
 
+def separate_data(C,cluster_object,label):    # not using this for now
+    print "SEPERATING DATA BASED ON LABEL"
+    label_ref = cluster_object.labels_
+    pos = np.where(label_ref==label)
+    print pos
+    return C[pos]
 
 
 
@@ -27,14 +33,15 @@ A = np.asarray(keypoints_caprio.features_())
 caprio_cluster = clustering(C,3)
 aron_cluster = clustering(A,3)
 
-print caprio_cluster.labels_
+upper_half_c = C[np.where(C[:,1]<50)]
+upper_half_a = A[np.where(A[:,1]<50)]
 
 
 
 
-
-for ((x,y),labels) in zip(C,caprio_cluster.labels_):
-    plt.scatter(x,y,color = c[labels])
+for ((x,y),(x1,y1)) in zip(upper_half_a,upper_half_c):
+    plt.scatter(x,y)
+    plt.scatter(x1,y1,color='r')
 
 
 plt.show()
