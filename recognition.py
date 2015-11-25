@@ -36,10 +36,13 @@ aron_cluster = clustering(A,3)
 upper_half_c = C[np.where(C[:,1]<50)]
 upper_half_a = A[np.where(A[:,1]<50)]
 
+bottom_half_c = C[np.where(C[:,1]>50)]
+bottom_half_a = A[np.where(A[:,1]>50)]
 
 
 
-for ((x,y),(x1,y1)) in zip(upper_half_a,upper_half_c):
+
+for ((x,y),(x1,y1)) in zip(bottom_half_a,upper_half_a):
     plt.scatter(x,y)
     plt.scatter(x1,y1,color='r')
 
