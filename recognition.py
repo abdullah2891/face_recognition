@@ -1,9 +1,11 @@
-import pickle
+
 import numpy as np
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import pickle
+from sklearn.svm import SVC
+
 
 __author__ = 'Abdullah_Rahman'
 
@@ -46,18 +48,22 @@ keypoints_caprio = pickle.load(open("caprio_keypoints.pkl","rb"))
 keypoints_aron = pickle.load(open("aron_keypoints.pkl","rb"))
 c = {0:'r',1:'b',2:'k'}
 pca = PCA(n_components=2)
-
+clf = SVC()
 
 C = np.asarray(keypoints_aron.features_())
 A = np.asarray(keypoints_caprio.features_())
 
-caprio_cluster = clustering(C,3)
-aron_cluster = clustering(A,3)
 
+
+C_eyes = dist_eyes(C)[0:200]
+A_eyes = dist_eyes(A)[0:200]
 
 
 dist_eyes_mouth_C = dist_eyes_mouth(C)[0:200]
 dist_eyes_mouth_A = dist_eyes_mouth(A)[0:200]
+
+X = np.concatenate((zip(C_eyes,dist_eyes_mouth_C),zip(A_eyes,dist_eyes_mouth_A)),axis=0)
+
 
 
 for ((x,y),(x1,y1)) in zip(zip(dist_eyes_mouth_C,C_eyes),zip(dist_eyes_mouth_A,A_eyes)):
