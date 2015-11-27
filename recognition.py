@@ -64,6 +64,13 @@ dist_eyes_mouth_A = dist_eyes_mouth(A)[0:200]
 
 X = np.concatenate((zip(C_eyes,dist_eyes_mouth_C),zip(A_eyes,dist_eyes_mouth_A)),axis=0)
 
+y = np.concatenate((np.ones(dist_eyes_mouth_C.shape[0]),np.zeros(dist_eyes_mouth_A.shape[0])),axis=0)
+
+clf.fit(X,y)
+
+pickle.dump(clf,open("trained_model.pkl",'wb'))
+
+
 
 
 for ((x,y),(x1,y1)) in zip(zip(dist_eyes_mouth_C,C_eyes),zip(dist_eyes_mouth_A,A_eyes)):
