@@ -1,4 +1,3 @@
-
 import numpy as np
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
@@ -50,8 +49,8 @@ c = {0:'r',1:'b',2:'k'}
 pca = PCA(n_components=2)
 clf = SVC()
 
-C = np.asarray(keypoints_aron.features_())
-A = np.asarray(keypoints_caprio.features_())
+C = np.asarray(keypoints_caprio.features_())
+A = np.asarray(keypoints_aron.features_())
 
 
 
@@ -65,7 +64,8 @@ dist_eyes_mouth_A = dist_eyes_mouth(A)[0:200]
 X = np.concatenate((zip(C_eyes,dist_eyes_mouth_C),zip(A_eyes,dist_eyes_mouth_A)),axis=0)
 
 y = np.concatenate((np.ones(dist_eyes_mouth_C.shape[0]),np.zeros(dist_eyes_mouth_A.shape[0])),axis=0)
-
+# caprio 1
+# aron 0
 clf.fit(X,y)
 
 pickle.dump(clf,open("trained_model.pkl",'wb'))
