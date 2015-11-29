@@ -46,7 +46,6 @@ def main():
     features.keypoints()
 
     X=features.select_kp(window)
-
     for (x,y) in X:
         cv2.rectangle(img,(int(x),int(y)),(int(x)+3,int(y)+3),(0,255,0),1)
         print x,y

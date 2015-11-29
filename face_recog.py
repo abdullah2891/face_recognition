@@ -22,7 +22,6 @@ class Training:
             print fd
             if READ_FILE is True:
                 img=cv2.imread(fd,0)
-                img =cv2.blur(img,(5,5))
             else:
                 img = filename
             if img is None:
@@ -46,6 +45,7 @@ class Training:
             #print window
 
             kp=features.keypoints()
+
             selectKp=features.select_kp(window)
             #print selectKp
 

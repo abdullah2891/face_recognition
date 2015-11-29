@@ -14,9 +14,9 @@ threshold=0.53
 
 
 
-filenames=("caprio.jpg","tes1.jpg")
+filenames=("caprio.jpg","aron.jpg")
 color=('r','b')
-cascade="frontalface.xml"
+cascade="cascades/frontalface.xml"
 C=KMeans(n_clusters=4)
 face_cascade=cv2.CascadeClassifier(cascade)
 
@@ -33,26 +33,28 @@ face=face_cascade.detectMultiScale(
     image,
     scaleFactor=1.1,
     minNeighbors=2,
-    minSize=(50,50)
+    minSize=(400,400)
 )
 
 window=face[0]
+print face
 (x,y,w,h)=window
 
-
+print window
 
 kp=features.keypoints()
-
+print kp
 selectKp=features.select_kp(window)
-            #print selectKp
+
+if len(selectKp)==0 :
+    print "NO KEYPOINTS IN WINDOW"
+    sys.exit(0)
 
 
 
-
-clf=Training(filenames,color,cascade)
+clf=Training(filenames,color,cascade,READ_FILE=True)
 
 clf.train()
-
 points= clf.predict(selectKp)
 
 
