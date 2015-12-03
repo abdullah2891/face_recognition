@@ -14,13 +14,13 @@ threshold=0.53
 
 
 
-filenames=("caprio.jpg","aron.jpg")
+filenames=("aron.jpg","sharapova_test.jpg")
 color=('r','b')
 cascade="cascades/frontalface.xml"
 C=KMeans(n_clusters=4)
 face_cascade=cv2.CascadeClassifier(cascade)
 
-image=cv2.imread("test.jpg",0)
+image=cv2.imread("sharapova_test.jpg",0)
 features=Feature_extractor(image)
 
 if image is None:
@@ -40,10 +40,8 @@ window=face[0]
 print face
 (x,y,w,h)=window
 
-print window
 
 kp=features.keypoints()
-print kp
 selectKp=features.select_kp(window)
 
 if len(selectKp)==0 :
@@ -64,6 +62,8 @@ l= list(points)
 
 first_image=list(l).count('r')
 second_image=list(l).count('b')
+
+print first_image,second_image
 first_percentage= float(first_image)/float(first_image+second_image)
 second_percentage=float(second_image)/float(first_image+second_image)
 
