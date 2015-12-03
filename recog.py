@@ -1,7 +1,9 @@
 import pickle
 import numpy as np
 from sklearn.cluster import KMeans
+from sklearn.svm import SVC
 import matplotlib.pyplot as plt
+
 __author__ = 'Abdullah_Rahman'
 
 def separate(C,y_threshold,x_threshold):
@@ -21,9 +23,9 @@ def cluster(A,number_cluster):
 def ratio_face(segmented):
     distY = cluster(segmented['bottom'],300)[:,1]-cluster(segmented['left_eye'],1)[0][1]
     distX = abs(cluster(segmented['right_eye'],300)[:,0]-cluster(segmented['left_eye'],1)[0][0])
-    A = distY/distX
+    A = distX/distY
     A.sort()
-    return  A
+    return  zip([i for i in range(len(A))],A)
 
 
 print "LOADING KEYPOINTS FILES....."
@@ -41,8 +43,25 @@ print "FINDING RATIO OF MOUTH AND EYES"
 A = ratio_face(segmented_face1)
 B= ratio_face(segmented_face2)
 
-plt.plot(A,'*')
-plt.plot(B,'--o')
+print "APPLYING CUTOFF TO CLEANUP DATA"
+A = A[50:250]
+B = B[50:250]
+
+print "STARTING MACHINE LEARNING"
+clf = SVC()
+
+label =np.append(np.ones(len(A)),np.zeros(len(B)))
+data = np.append(A,B,axis=0)
+
+clf.fit(data,label)
+
+pickle.dump(clf,open("TRAINED_SVM.pkl",'wb'))
+
+
+print "VISUALIZING "
+c ={1:'r',0:'b'}
+for ((x,y),l) in zip(data,label):
+    plt.scatter(x,y,color=c[l])
 
 plt.show()
 
