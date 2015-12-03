@@ -12,30 +12,39 @@ def separate(C,y_threshold,x_threshold):
 
     return segmented
 
-def clustering(A,number_cluster):
+def cluster(A,number_cluster):
     C = KMeans(n_clusters=number_cluster)
     C.fit(A)
-    return C
-
-def distance(A,reference,axis):
-    return
+    return C.cluster_centers_
 
 
+def ratio_face(segmented):
+    distY = cluster(segmented['bottom'],300)[:,1]-cluster(segmented['left_eye'],1)[0][1]
+    distX = abs(cluster(segmented['right_eye'],300)[:,0]-cluster(segmented['left_eye'],1)[0][0])
+    A = distY/distX
+    A.sort()
+    return  A
 
 
-print "LOADING FILES....."
-caprio = pickle.load(open("aron_keypoints.pkl",'rb'))
-aron = pickle.load(open('caprio_keypoints.pkl','rb'))
+print "LOADING KEYPOINTS FILES....."
+caprio = pickle.load(open("caprio_keypoints.pkl",'rb'))
+aron = pickle.load(open('aron_keypoints.pkl','rb'))
 
 feature_caprio = np.asarray(caprio.features_())
 feature_aron = np.asarray(aron.features_())
 
+print 'SEGMENTING THE FACE'
+segmented_face1 = separate(feature_caprio,y_threshold=50,x_threshold=50)
+segmented_face2 = separate(feature_aron,y_threshold=50,x_threshold=50)
 
-segmented = separate(feature_caprio,y_threshold=50,x_threshold=50)
+print "FINDING RATIO OF MOUTH AND EYES"
+A = ratio_face(segmented_face1)
+B= ratio_face(segmented_face2)
 
-
-plt.scatter(segmented['left_eye'][:,0],segmented['left_eye'][:,1],color='g')
-plt.scatter(segmented['bottom'][:,0],segmented['bottom'][:,1],color='r')
-plt.scatter(segmented['right_eye'][:,0],segmented['right_eye'][:,1],color='b')
+plt.plot(A,'*')
+plt.plot(B,'--o')
 
 plt.show()
+
+
+
