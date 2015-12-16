@@ -1,4 +1,5 @@
 from sklearn.cluster import KMeans
+from sklearn import svm
 import numpy as  np
 from orb import Feature_extractor
 import cv2
@@ -33,37 +34,21 @@ def ratio_face(segmented):
 print "READING THE IMAGE FILE AND EXTRACTING KEYPOINTS"
 input = cv2.imread("aron.jpg",0)
 cascade = cv2.CascadeClassifier('cascades/frontalface.xml')
-
-face= cascade.detectMultiScale(
-                input,
-                scaleFactor=1.1,
-                minNeighbors=2,
-                minSize=(50,50)
-            )
+model_filename = "TRAINED_SUPPORT_VECTOR_MACHINE.pkl"
+model = pickle.load(open(model_filename,'rb'))
 
 
-window = face[0]
+
 features = Feature_extractor(input)
 pt = features.keypoints()
-kp = features.select_kp(window)
-if len(kp)==0:
-    print "failed to find any keypoints"
-    sys.exit(0) # just escape if it can't find anything
+
 
 print "ANALYZING FEATURES"
 Kp = np.asarray(pt)
-segments = separate(Kp,50,50)
+segments = separate(Kp,1200,900)
 ratios = ratio_face(segments)
 
-
-print "CLEARING THE DATA"
-R = ratios[10:40]
-
-print  "LOADING THE TRAINED DATA"
-
-model = pickle.load(open("TRAINED_DECISION_TREE.pkl",'rb'))
-
-print model.predict(R)
+print model.predict(Kp)
 
 
 
