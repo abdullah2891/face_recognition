@@ -52,9 +52,22 @@ print "FINDING RATIO OF MOUTH AND EYES"
 A = ratio_face(segmented_face1)
 B= ratio_face(segmented_face2)
 
-freq = A[0]
+freq_A = A[0];freq_B = B[0]
 intervals = A[1][0:49]
 
+print "PREPARING DATASETS"
+label =np.append(np.zeros(len(freq_A)),np.ones(len(freq_B)))
+data = np.append(zip(intervals,freq_A),zip(intervals,freq_B),axis=0)
+
+
+
+print "MODELING "
+clf = tree.DecisionTreeClassifier()
+clf.fit(data,label)
+
+pickle.dump(clf,open("trained.pkl",'wb'))
+
+print clf.predict(zip(intervals,freq_A))
 
 plt.scatter(intervals,A[0])
 plt.scatter(intervals,B[0],color='r')
