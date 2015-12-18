@@ -1,5 +1,4 @@
 from sklearn.cluster import KMeans
-from sklearn.svm import SVC
 from sklearn import tree
 import numpy as np
 import cv2
@@ -28,8 +27,6 @@ def cluster(A,number_cluster):
 def ratio_face(segmented):
     distY = segmented['bottom'][:,1]-cluster(segmented['left_eye'],1)[0][1]
     distX = abs(segmented['right_eye'][:,0]-cluster(segmented['left_eye'],1)[0][1])
-
-
     if(len(distX)<len(distY)): A = distX/distY[0:len(distX)]
     if(len(distY)<len(distX)): A = distX[0:len(distY)]/distY
     A.sort()
@@ -43,7 +40,7 @@ print "READING THE IMAGE FILE "
 aron = cv2.imread("aron.jpg",0)
 caprio = cv2.imread("2.jpg",0)
 
-test = cv2.imread("1.jpg",0)
+test = cv2.imread("aron_test.jpg",0)
 
 print "EXTRACTING FEATURES"
 aron_pt = normalization(Feature_extractor(aron).keypoints())
