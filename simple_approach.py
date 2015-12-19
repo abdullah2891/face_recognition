@@ -40,24 +40,19 @@ print "READING THE IMAGE FILE "
 aron = cv2.imread("aron.jpg",0)
 caprio = cv2.imread("2.jpg",0)
 
-test = cv2.imread("aron_test.jpg",0)
+test = cv2.imread("aronTest.jpg",0)
 
 print "EXTRACTING FEATURES"
 aron_pt = normalization(Feature_extractor(aron).keypoints())
 caprio_pt = normalization(Feature_extractor(caprio).keypoints())
 test_pt = normalization(Feature_extractor(test).keypoints())
 
-
-
 print len(aron_pt),len(caprio_pt)
-print "PREPARING DATASET"
-seg_1 = separate(aron_pt,50,50)
-seg_2 = separate(caprio_pt,70,70)
-seg_3 = separate(test_pt,70,65)
 
-r1 = ratio_face(seg_1)
-r2 = ratio_face(seg_2)
-r3 = ratio_face(seg_3)
+print "PREPARING DATASET"
+r1 = ratio_face(separate(aron_pt,50,50))
+r2 = ratio_face(separate(caprio_pt,70,70))
+r3 = ratio_face(separate(test_pt,70,65))
 
 print "DEVELOPING DATASETS"
 dat = np.append(r1,r2,axis=0)
@@ -70,7 +65,7 @@ clf.fit(dat,label)
 
 
 
-print "VIZ"
+print "VISUALIZING "
 c = {0:'r',1:'b'}  # aron-->0 caprio---> 1
 color_label = [c[i] for i in label]
 
@@ -79,9 +74,14 @@ plt.scatter(dat[:,0],dat[:,1],color=color_label)
 #plt.scatter(r2[:,0],r2[:,1],color='b')
 res = clf.predict(r3)
 
-print "ARON",res.tolist().count(0)
-print "CAPRIO",res.tolist().count(1)
+print "ARON: ",float(res.tolist().count(0))/float(len(res.tolist()))
+print "CAPRIO: ",float(res.tolist().count(1))/float(len(res.tolist()))
 print len(res.tolist())
+
+
+
+
+
 
 X1=np.linspace(0,100,40)
 Y1=np.linspace(0,0.3,40)
