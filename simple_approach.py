@@ -40,19 +40,17 @@ print "READING THE IMAGE FILE "
 aron = cv2.imread("aron.jpg",0)
 caprio = cv2.imread("2.jpg",0)
 
-test = cv2.imread("aronTest.jpg",0)
+test = cv2.imread("5.jpg",0)
 
 print "EXTRACTING FEATURES"
 aron_pt = normalization(Feature_extractor(aron).keypoints())
 caprio_pt = normalization(Feature_extractor(caprio).keypoints())
-test_pt = normalization(Feature_extractor(test).keypoints())
 
 print len(aron_pt),len(caprio_pt)
 
 print "PREPARING DATASET"
 r1 = ratio_face(separate(aron_pt,50,50))
 r2 = ratio_face(separate(caprio_pt,70,70))
-r3 = ratio_face(separate(test_pt,70,65))
 
 print "DEVELOPING DATASETS"
 dat = np.append(r1,r2,axis=0)
@@ -72,25 +70,27 @@ color_label = [c[i] for i in label]
 #plt.scatter(dat[:,0],dat[:,1],color=color_label)
 plt.scatter(dat[:,0],dat[:,1],color=color_label)
 #plt.scatter(r2[:,0],r2[:,1],color='b')
-res = clf.predict(r3)
 
-print "ARON: ",float(res.tolist().count(0))/float(len(res.tolist()))
-print "CAPRIO: ",float(res.tolist().count(1))/float(len(res.tolist()))
-print len(res.tolist())
+print "TESTING "
+
+filedir = ('1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg')
+
+clf = KMeans(n_clusters=3)
+
+for img in filedir:
+    test = cv2.imread(img,0)
+    test_pt = normalization(Feature_extractor(test).keypoints())
+    cent = np.sort(clf.fit(test_pt).cluster_centers_,axis=0)
+    midX =  (cent[:,0][0]+cent[:,0][1])/2
+    midY =  (cent[:,1][0]+cent[:,1][2])/2
+    r3 = ratio_face(separate(test_pt,midX,midY))
+    res = clf.predict(r3)
+    print "FIE ",img," ARON: ",float(res.tolist().count(0))/float(len(res.tolist()))," || CAPRIO: ",float(res.tolist().count(1))/float(len(res.tolist()))
+    #print len(res.tolist())
 
 
 
 
 
-
-X1=np.linspace(0,100,40)
-Y1=np.linspace(0,0.3,40)
-for x in X1:
-    for y in Y1:
-        label = clf.predict([x,y])
-        plt.scatter(x,y,color=c[int(label)])
-
-
-#plt.show()
 
 
