@@ -88,11 +88,9 @@ for  s in fd.extracting():
     #print fileDir
 
 
-filedir = ('1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg','a _2.jpg','a_3.jpg','a _4.jpg','a_5.jpg')
+
 
 cl = KMeans(n_clusters=3)
-
-
 
 
 
@@ -107,7 +105,7 @@ for img in Images_dir:
     plt.scatter(test_pt[:,0],test_pt[:,1])
     r3 = ratio_face(separate(test_pt,midX,midY))
     res = clf.predict(r3)
-    print "FIE ",img[81:len(img)]," ARON: ",float(res.tolist().count(0))/float(len(res.tolist()))," || CAPRIO: ",float(res.tolist().count(1))/float(len(res.tolist()))
+    print "FIE ",img[81:len(img)]," ARON| ",float(res.tolist().count(0))/float(len(res.tolist()))," || CAPRIO| ",float(res.tolist().count(1))/float(len(res.tolist()))
     #print len(res.tolist())
 
 
