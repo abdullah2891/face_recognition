@@ -4,6 +4,8 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 from orb import Feature_extractor
+import os,sys
+from file_parser import File_parser
 
 __author__ = 'Abdullah_Rahman'
 
@@ -40,7 +42,6 @@ print "READING THE IMAGE FILE "
 aron = cv2.imread("aron.jpg",0)
 caprio = cv2.imread("2.jpg",0)
 
-test = cv2.imread("5.jpg",0)
 
 print "EXTRACTING FEATURES"
 aron_pt = normalization(Feature_extractor(aron).keypoints())
@@ -72,24 +73,47 @@ plt.scatter(dat[:,0],dat[:,1],color=color_label)
 #plt.scatter(r2[:,0],r2[:,1],color='b')
 
 print "TESTING "
+absDir=os.path.dirname(__file__)
+Images_dir=[]
 
-filedir = ('1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg')
 
-clf = KMeans(n_clusters=3)
+directory_file = "directories.txt"
+filename="testing/sample"
+fd=File_parser(filename+'\\'+directory_file)
 
-for img in filedir:
+print "EXTRACTING IMAGES"
+for  s in fd.extracting():
+    fileDir=absDir+'/'+filename+"/"+s
+    Images_dir.append(fileDir)
+    #print fileDir
+
+
+filedir = ('1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg','a _2.jpg','a_3.jpg','a _4.jpg','a_5.jpg')
+
+cl = KMeans(n_clusters=3)
+
+
+
+
+
+for img in Images_dir:
     test = cv2.imread(img,0)
+    #print img,len(test)
     test_pt = normalization(Feature_extractor(test).keypoints())
-    cent = np.sort(clf.fit(test_pt).cluster_centers_,axis=0)
-    midX =  (cent[:,0][0]+cent[:,0][1])/2
+    cent = np.sort(cl.fit(test_pt).cluster_centers_,axis=0)
+    midX =  (cent[:,0][1]+cent[:,0][2])/2
     midY =  (cent[:,1][0]+cent[:,1][2])/2
+    print midX,midY
+    plt.scatter(test_pt[:,0],test_pt[:,1])
     r3 = ratio_face(separate(test_pt,midX,midY))
     res = clf.predict(r3)
-    print "FIE ",img," ARON: ",float(res.tolist().count(0))/float(len(res.tolist()))," || CAPRIO: ",float(res.tolist().count(1))/float(len(res.tolist()))
+    print "FIE ",img[81:len(img)]," ARON: ",float(res.tolist().count(0))/float(len(res.tolist()))," || CAPRIO: ",float(res.tolist().count(1))/float(len(res.tolist()))
     #print len(res.tolist())
 
 
 
+
+#plt.show()
 
 
 
