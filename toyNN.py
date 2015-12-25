@@ -14,7 +14,8 @@ class synapse:
         deriv = lambda  x : x*(1-x)
 
         np.random.seed(10)
-        w0 = 2*np.random.random((3,1))-1
+        row = np.asarray(self.X).shape[1]
+        w0 = 2*np.random.random((row,1))-1
 
         for iter in xrange(epochs):
             l0 = X
@@ -42,6 +43,6 @@ if __name__=="__main__":
     [1,1,1] ])
     y = np.array([[1,1,0,0]]).T
     syn = synapse(X,y)
-    syn.training(1000,True)
+    syn.training(1000)
     print syn.predict(X)
 
