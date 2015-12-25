@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from orb import Feature_extractor
 import os,sys
 from file_parser import File_parser
+from toyNN import synapse
 
 __author__ = 'Abdullah_Rahman'
 
@@ -47,7 +48,7 @@ print "EXTRACTING FEATURES"
 aron_pt = normalization(Feature_extractor(aron).keypoints())
 caprio_pt = normalization(Feature_extractor(caprio).keypoints())
 
-print len(aron_pt),len(caprio_pt)
+#print len(aron_pt),len(caprio_pt)
 
 print "PREPARING DATASET"
 r1 = ratio_face(separate(aron_pt,50,50))
@@ -87,13 +88,10 @@ for  s in fd.extracting():
     Images_dir.append(fileDir)
     #print fileDir
 
-
-
-
 cl = KMeans(n_clusters=3)
 
 
-
+print "File,ARON,CAPRIO"
 for img in Images_dir:
     test = cv2.imread(img,0)
     #print img,len(test)
@@ -101,13 +99,12 @@ for img in Images_dir:
     cent = np.sort(cl.fit(test_pt).cluster_centers_,axis=0)
     midX =  (cent[:,0][1]+cent[:,0][2])/2
     midY =  (cent[:,1][0]+cent[:,1][2])/2
-    print midX,midY
     plt.scatter(test_pt[:,0],test_pt[:,1])
     r3 = ratio_face(separate(test_pt,midX,midY))
     res = clf.predict(r3)
-    print "FIE ",img[81:len(img)]," ARON| ",float(res.tolist().count(0))/float(len(res.tolist()))," || CAPRIO| ",float(res.tolist().count(1))/float(len(res.tolist()))
-    #print len(res.tolist())
-
+    print img[81:len(img)],",",float(res.tolist().count(0))\
+                               /float(len(res.tolist())),",",\
+        float(res.tolist().count(1))/float(len(res.tolist()))
 
 
 
