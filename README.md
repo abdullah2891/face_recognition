@@ -1,6 +1,10 @@
 # face_recognition
 simple face recognition using decision tree
 
+#SAMPLE PICTURE 
+![alt tag](testing.png)
+
+#PERFORMANCE
 File |	 ARON |	 CAPRIO	|Mistake| 
 -----|-------|--------|------|			
 aron1.jpg |	 0.375 |	 0.625 | TRUE|	
