@@ -17,7 +17,7 @@ Projects are divided by several modules:
 #PERFORMANCE: 
 *HIGH SCORE == CLASS*
 
-File |	 ARON |	 CAPRIO	|Mistake| 
+File |	 ARON |	 CAPRIO	|Mis-Classification| 
 -----|-------|--------|------|			
 aron1.jpg |	 0.375 |	 0.625 | TRUE|	
 aron2.jpg |	 0.660377358491 |	 0.339622641509 ||	
