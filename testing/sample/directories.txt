@@ -3,6 +3,13 @@ aron2.jpg
 aron4.jpg
 aron5.jpg
 aron6.jpg
+caprio(1).jpg
+caprio(2).jpg
+caprio(3).jpg
+caprio(4).jpg
+caprio(5).jpg
+caprio(6).jpg
+caprio(8).jpg
 caprio.jpg
 caprio10.jpg
 caprio3.jpg

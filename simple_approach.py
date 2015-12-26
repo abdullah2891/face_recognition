@@ -91,7 +91,8 @@ for  s in fd.extracting():
 cl = KMeans(n_clusters=3)
 
 
-print "File,ARON,CAPRIO"
+print "File |, ARON |, CAPRIO,|False| "
+print "-----|-------|--------|------|"
 for img in Images_dir:
     test = cv2.imread(img,0)
     #print img,len(test)
@@ -102,9 +103,9 @@ for img in Images_dir:
     plt.scatter(test_pt[:,0],test_pt[:,1])
     r3 = ratio_face(separate(test_pt,midX,midY))
     res = clf.predict(r3)
-    print img[81:len(img)],",",float(res.tolist().count(0))\
-                               /float(len(res.tolist())),",",\
-        float(res.tolist().count(1))/float(len(res.tolist()))
+    print img.split('/')[-1],"|,",float(res.tolist().count(0))\
+                               /float(len(res.tolist())),"|,",\
+        float(res.tolist().count(1))/float(len(res.tolist())), '||'
 
 
 
