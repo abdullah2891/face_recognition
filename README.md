@@ -2,7 +2,7 @@
 simple face recognition using decision tree
 
 #SAMPLE PICTURE 
-![alt Image(based on relative brightness) ](testing.png)
+![alt Image(PICTURES USED FOR TESTING) ](testing.png)
 
 #PERFORMANCE
 File |	 ARON |	 CAPRIO	|Mistake| 
