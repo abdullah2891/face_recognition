@@ -1,7 +1,23 @@
 # face_recognition
-simple face recognition using decision tree
+Projects are divided by several modules:
 
-File |	 ARON |	 CAPRIO	|Mistake| 
+**orb.py:** Uses orb descriptor on image and filters keypoints using given window (selectKP)
+
+**face_recog.py:** Using Haar Cascade, detect face. and provide window.Uses orb.py to find the keypoints in the face. 
+
+**File_parser:** using directories.txt, it loads the picture and returns an array 
+
+**simple_approach.py :** Using normalization, seperate,cluster,and ratio face function, it finds the distace between eyes and to the mouth region, and trains and predict with  decision tree.
+
+
+
+#SAMPLE PICTURE 
+![alt Image(PICTURES USED FOR TESTING) ](testing.PNG)
+
+#PERFORMANCE: 
+*HIGH SCORE == CLASS*
+
+File |	 ARON-SCORE |	 CAPRIO-SCORE	|Mis-Classification| 
 -----|-------|--------|------|			
 aron1.jpg |	 0.375 |	 0.625 | TRUE|	
 aron2.jpg |	 0.660377358491 |	 0.339622641509 ||	
