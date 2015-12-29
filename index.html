@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Face recognition : simple face recognition using decision tree">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Face recognition</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/abdullah2891/face_recognition">View on GitHub</a>
+
+          <h1 id="project_title">Face recognition</h1>
+          <h2 id="project_tagline">simple face recognition using decision tree</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/abdullah2891/face_recognition/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/abdullah2891/face_recognition/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="face_recognition" class="anchor" href="#face_recognition" aria-hidden="true"><span class="octicon octicon-link"></span></a>face_recognition</h1>
+
+<p>Projects are divided by several modules:</p>
+
+<p><strong>orb.py:</strong> Uses orb descriptor on image and filters keypoints using given window (selectKP)</p>
+
+<p><strong>face_recog.py:</strong> Using Haar Cascade, detect face. and provide window.Uses orb.py to find the keypoints in the face. </p>
+
+<p><strong>File_parser:</strong> using directories.txt, it loads the picture and returns an array </p>
+
+<p><strong>simple_approach.py :</strong> Using normalization, seperate,cluster,and ratio face function, it finds the distace between eyes and to the mouth region, and trains and predict with  decision tree.</p>
+
+<h1>
+<a id="sample-picture" class="anchor" href="#sample-picture" aria-hidden="true"><span class="octicon octicon-link"></span></a>SAMPLE PICTURE</h1>
+
+<p><img src="testing.PNG" alt="alt Image(PICTURES USED FOR TESTING) "></p>
+
+<h1>
+<a id="performance" class="anchor" href="#performance" aria-hidden="true"><span class="octicon octicon-link"></span></a>PERFORMANCE:</h1>
+
+<p><em>HIGH SCORE == CLASS</em></p>
+
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>ARON-SCORE</th>
+<th>CAPRIO-SCORE</th>
+<th>Mis-Classification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>aron1.jpg</td>
+<td>0.375</td>
+<td>0.625</td>
+<td>TRUE</td>
+</tr>
+<tr>
+<td>aron2.jpg</td>
+<td>0.660377358491</td>
+<td>0.339622641509</td>
+<td></td>
+</tr>
+<tr>
+<td>aron4.jpg</td>
+<td>0.611111111111</td>
+<td>0.388888888889</td>
+<td></td>
+</tr>
+<tr>
+<td>aron5.jpg</td>
+<td>0.40243902439</td>
+<td>0.59756097561</td>
+<td>TRUE</td>
+</tr>
+<tr>
+<td>aron6.jpg</td>
+<td>0.614035087719</td>
+<td>0.385964912281</td>
+<td></td>
+</tr>
+<tr>
+<td>caprio(1).jpg</td>
+<td>0.0698924731183</td>
+<td>0.930107526882</td>
+<td></td>
+</tr>
+<tr>
+<td>caprio(2).jpg</td>
+<td>0.25</td>
+<td>0.75</td>
+<td></td>
+</tr>
+<tr>
+<td>caprio(3).jpg</td>
+<td>0.833333333333</td>
+<td>0.166666666667</td>
+<td>TRUE</td>
+</tr>
+<tr>
+<td>caprio(4).jpg</td>
+<td>0.309523809524</td>
+<td>0.690476190476</td>
+<td></td>
+</tr>
+<tr>
+<td>caprio(5).jpg</td>
+<td>0.286885245902</td>
+<td>0.713114754098</td>
+<td></td>
+</tr>
+<tr>
+<td>caprio(6).jpg</td>
+<td>0.421686746988</td>
+<td>0.578313253012</td>
+<td></td>
+</tr>
+<tr>
+<td>caprio(8).jpg</td>
+<td>0.227272727273</td>
+<td>0.772727272727</td>
+<td></td>
+</tr>
+<tr>
+<td>caprio.jpg</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>TRUE</td>
+</tr>
+<tr>
+<td>caprio10.jpg</td>
+<td>0.466666666667</td>
+<td>0.533333333333</td>
+<td></td>
+</tr>
+<tr>
+<td>caprio3.jpg</td>
+<td>0.136842105263</td>
+<td>0.863157894737</td>
+<td></td>
+</tr>
+<tr>
+<td>caprio4.jpg</td>
+<td>0.330188679245</td>
+<td>0.669811320755</td>
+<td></td>
+</tr>
+<tr>
+<td>caprio5.jpg</td>
+<td>0.774193548387</td>
+<td>0.225806451613</td>
+<td>TRUE</td>
+</tr>
+<tr>
+<td>caprio6.jpg</td>
+<td>0.13829787234</td>
+<td>0.86170212766</td>
+<td></td>
+</tr>
+<tr>
+<td>caprio7.jpg</td>
+<td>0.253623188406</td>
+<td>0.746376811594</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Face recognition maintained by <a href="https://github.com/abdullah2891">abdullah2891</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
